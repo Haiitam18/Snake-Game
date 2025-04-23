@@ -17,7 +17,6 @@ let snake = [
   { x: 110, y: 150 },
 ];
 
-// Dessiner les bordures
 ctx.strokeStyle = "black";
 ctx.lineWidth = 2;
 ctx.strokeRect(0, 0, 300, 300);
@@ -63,11 +62,11 @@ function changeDirection(event) {
 }
 
 function advanceSnake() {
-  // 1) calcul de la nouvelle tête
+  // Mouving head
   const head = { x: snake[0].x + dx, y: snake[0].y + dy };
   snake.unshift(head);
 
-  // 2) manger la nourriture ?
+  // Eat food
   if (head.x === foodX && head.y === foodY) {
     increaseScore();
     randFood();
@@ -75,12 +74,12 @@ function advanceSnake() {
     snake.pop();
   }
 
-  // 3) collision murs ?
+  // Wall collision
   if (head.x < 0 || head.x >= 300 || head.y < 0 || head.y >= 300) {
     quitGame();
   }
 
-  // 4) collision avec le corps ?
+  // Body collision
   for (let i = 1; i < snake.length; i++) {
     if (head.x === snake[i].x && head.y === snake[i].y) {
       quitGame();
@@ -155,6 +154,5 @@ function resetGame() {
   gameRunning = true;
 }
 
-// démarrage
 main();
 document.addEventListener("keydown", changeDirection);
